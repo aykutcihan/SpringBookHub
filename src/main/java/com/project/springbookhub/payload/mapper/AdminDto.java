@@ -14,7 +14,7 @@ public class AdminDto {
     private final RoleService roleService;
 
 
-    public static Admin mapAdminRequestToAdmin(AdminRequest adminRequest) {
+    public Admin mapAdminRequestToAdmin(AdminRequest adminRequest) {
         return Admin.builder()
                 .username(adminRequest.getUsername())
                 .name(adminRequest.getName())
@@ -28,7 +28,7 @@ public class AdminDto {
                 .build();
     }
 
-    public static AdminResponse mapAdminToAdminResponse(Admin admin) {
+    public AdminResponse mapAdminToAdminResponse(Admin admin) {
         return AdminResponse.builder()
                 .id(admin.getId())
                 .username(admin.getUsername())
@@ -43,8 +43,7 @@ public class AdminDto {
     }
 
 
-
-    public static void updateAdminFromAdminRequest(AdminRequest adminRequest, Admin admin) {
+    public void updateAdminFromAdminRequest(AdminRequest adminRequest, Admin admin) {
 
         admin.setUsername(adminRequest.getUsername());
         admin.setName(adminRequest.getName());

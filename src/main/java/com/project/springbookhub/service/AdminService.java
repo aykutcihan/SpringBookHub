@@ -41,7 +41,7 @@ public class AdminService {
     public ResponseMessage<AdminResponse> registerAdmin(AdminRequest adminRequest) {
         serviceHelpers.checkDuplicate(adminRequest.getUsername(), adminRequest.getEmail(), adminRequest.getPhoneNumber());
 
-        Admin admin= AdminDto.mapAdminRequestToAdmin(adminRequest);
+        Admin admin= adminDto.mapAdminRequestToAdmin(adminRequest);
 
         admin.setBuilt_in(false);
 
@@ -56,7 +56,7 @@ public class AdminService {
 
         return ResponseMessage.<AdminResponse>builder()
                 .message(String.format(Messages.USER_SAVED, "admin"))
-                .object(AdminDto.mapAdminToAdminResponse(adminRepository.save(admin)))
+                .object(adminDto.mapAdminToAdminResponse(adminRepository.save(admin)))
                 .httpStatus(HttpStatus.CREATED)
                 .build();
 
@@ -71,7 +71,7 @@ public class AdminService {
         }
         return ResponseMessage.<AdminResponse>builder()
                 .message(String.format(Messages.USER_AUTHENTICATED, admin))
-                .object(AdminDto.mapAdminToAdminResponse(admin))
+                .object(adminDto.mapAdminToAdminResponse(admin))
                 .httpStatus(HttpStatus.OK)
                 .build();
 
@@ -82,7 +82,7 @@ public class AdminService {
                 .orElseThrow(() -> new UserNotFoundException(String.format(Messages.USERNAME_NOT_FOUND, username)));
 
 
-        AdminResponse adminResponse = AdminDto.mapAdminToAdminResponse(admin);
+        AdminResponse adminResponse = adminDto.mapAdminToAdminResponse(admin);
         return ResponseMessage.<AdminResponse>builder()
                 .object(adminResponse)
                 .message(" User profile retrieved successfully")
@@ -95,7 +95,7 @@ public class AdminService {
 
         List<Admin> clients = adminRepository.findAll();
         return clients.stream()
-                .map(AdminDto::mapAdminToAdminResponse)
+                .map(adminDto::mapAdminToAdminResponse)
                 .collect(Collectors.toList());
     }
 
@@ -103,8 +103,8 @@ public class AdminService {
         Admin admin= adminRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(String.format(Messages.USER_NOT_FOUND, id)));
 
-        AdminDto.updateAdminFromAdminRequest(adminRequest, admin);
-        AdminResponse adminResponse = AdminDto.mapAdminToAdminResponse(adminRepository.save(admin));;
+        adminDto.updateAdminFromAdminRequest(adminRequest, admin);
+        AdminResponse adminResponse = adminDto.mapAdminToAdminResponse(adminRepository.save(admin));;
 
         return ResponseMessage.<AdminResponse>builder()
                 .object(adminResponse)
