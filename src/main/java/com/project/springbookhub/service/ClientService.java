@@ -1,6 +1,8 @@
 package com.project.springbookhub.service;
 
+import com.project.springbookhub.exception.ConflictException;
 import com.project.springbookhub.exception.UserNotFoundException;
+import com.project.springbookhub.model.concretes.Admin;
 import com.project.springbookhub.model.concretes.Client;
 import com.project.springbookhub.model.enums.RoleType;
 import com.project.springbookhub.payload.ResponseMessage;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -109,6 +112,8 @@ public class ClientService {
                 .httpStatus(HttpStatus.OK)
                 .build();
     }
+
+
 
 }
 
